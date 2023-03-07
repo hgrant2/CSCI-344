@@ -1,0 +1,72 @@
+body * {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #F4F4F4;
+}
+
+/* Begin Debugging Code */
+header, main, main section, nav, .logo {
+    border: solid 2px #CCC;
+}
+
+.logo {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+aside, body > header, main, .news-feed {
+    border: solid 4px #000;
+    font-family: monospace;
+}
+/* End Debugging Code */
+
+
+#topnav{
+    position: fixed;
+    background-color: gray;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 5px 20px;
+}
+
+main{
+    margin-top: 100px;
+}
+
+aside{
+    position: fixed;
+    background-color: hotpink;
+    top: 100px;
+    left: 60vw;
+    width: 40vw;
+    min-height: 400px;
+}
+
+.news-feed{
+    margin-right: 40vw;
+
+}
+
+.news-feed section{
+    min-height: 400px;
+}
+
+
+@media (max-width: 800px) {
+    aside{
+        display: none;
+    }
+
+    .news-feed{
+        margin-right: 0px;
+    }
+    
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="carousel.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <title>Carousel</title>
+</head>
+<body>
+    <h1>Your Carousel</h1>
+    <div class="carousel" aria-label="Photo Carousel">
+
+        <div class="carousel-inner" loadSlides(data)>
+            <section class="slide" role="group" aria-label="Slide 1 of 10">
+                <img src="https://picsum.photos/600/400?n=1" alt="Photo 1">
+                <p>Photo 1</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 2 of 10">
+                <img src="https://picsum.photos/600/400?n=2" alt="Photo 2">
+                <p>Photo 2</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 3 of 10">
+                <img src="https://picsum.photos/600/400?n=3" alt="Photo 3">
+                <p>Photo 3</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 4 of 10">
+                <img src="https://picsum.photos/600/400?n=4" alt="Photo 4">
+                <p>Photo 4</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 5 of 10">
+                <img src="https://picsum.photos/600/400?n=5" alt="Photo 5">
+                <p>Photo 5</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 6 of 10">
+                <img src="https://picsum.photos/600/400?n=6" alt="Photo 6">
+                <p>Photo 6</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 7 of 10">
+                <img src="https://picsum.photos/600/400?n=7" alt="Photo 7">
+                <p>Photo 7</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 8 of 10">
+                <img src="https://picsum.photos/600/400?n=8" alt="Photo 8">
+                <p>Photo 8</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 9 of 10">
+                <img src="https://picsum.photos/600/400?n=9" alt="Photo 9">
+                <p>Photo 9</p>
+            </section>
+            <section class="slide" role="group" aria-label="Slide 10 of 10">
+                <img src="https://picsum.photos/600/400?n=10" alt="Photo 10">
+                <p>Photo 10</p>
+            </section>
+            
+        </div> 
+
+        <button class="back" aria-label="Show previous slide" onclick="">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <button class="forward" aria-label="Show next slide">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        
+    </div>
+    
+</body>
+</html>
