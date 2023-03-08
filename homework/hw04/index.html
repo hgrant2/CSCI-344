@@ -7,263 +7,329 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script src="js/main.js" type="module" defer></script>
-    <title>Fixed positioning</title>
-</head>
-<body>
-    <header id="topnav">
-        <h1 class="logo">
-            Photo App
-        </h1>
+    <title>Photo App</title>
+</head>  
+    <body>
+
         <nav>
-            <p>haleygrant2</p>
-            <p style="color:darkturquoise;">sign out</p>
+            <h1>Photo App</h1>
+            <ul>
+                <li><span>gibsonjack</span></li>
+                <li><a href="#">Sign out</a></li>
+            </ul>
         </nav>
-    </header>
-    <main> 
-        
-        <!-- fix to righthand side -->
-        <aside> 
+    
+        <aside>
             <header>
-                <img src="https://picsum.photos/205">
-                <p>haleygrant2</p>
+                <img src="https://picsum.photos/60/60?q=11" class="pic" />
+                <h2>gibsonjack</h2>
             </header>
-            <section id="suggestion"><strong>Suggestions for you</strong></section>
-            <section class="profiles">
-                <img src="https://picsum.photos/200">
-                <div>
-                        <p><strong>pizzapartylover</strong></p>
-                        <p class="sug">suggested for you</p>
-                </div>
-                <p><a href="index.html">follow</a></p>    
-            </section>
-            <section class="profiles"><img src="https://picsum.photos/204">
-                <div>
-                        <p><strong>rgb2002</strong></p>
-                        <p class="sug">suggested for you</p>
-                </div>
-                <p><a href="index.html">follow</a></p></section>
-            <section class="profiles"><img src="https://picsum.photos/203">
-                <div>
-                        <p><strong>randomguy</strong></p>
-                        <p class="sug">suggested for you</p>
-                </div>
-                <p><a href="index.html">follow</a></p></section>
-            <section class="profiles"><img src="https://picsum.photos/202">
-                <div>
-                        <p><strong>randomgirl</strong></p>
-                        <p class="sug">suggested for you</p>
-                </div>
-                <p><a href="index.html">follow</a></p></section>
-            <section class="profiles"><img src="https://picsum.photos/201">
-                <div>
-                        <p><strong>chickenwrangler</strong></p>
-                        <p class="sug">suggested for you</p>
-                </div>
-                <p><a href="index.html">follow</a></p></section>
+            <div class="suggestions">
+                <p class="suggestion-text">Suggestions for you</p>
+                <section>
+                    <img src="https://picsum.photos/30/30?q=11" class="pic" />
+                    <div>
+                        <p class="username">amandahudson</p>
+                        <p>suggested for you</p>
+                    </div>
+                    <button class="button">follow</button>
+                </section>
+                <section>
+                    <img src="https://picsum.photos/30/30?q=12" class="pic" />
+                    <div>
+                        <p class="username">qthornton</p>
+                        <p>suggested for you</p>
+                    </div>
+                    <button class="button">follow</button>
+                </section>
+                <section>
+                    <img src="https://picsum.photos/30/30?q=13" class="pic" />
+                    <div>
+                        <p class="username">ynelson</p>
+                        <p>suggested for you</p>
+                    </div>
+                    <button class="button">follow</button>
+                </section>
+                <section>
+                    <img src="https://picsum.photos/30/30?q=14" class="pic" />
+                    <div>
+                        <p class="username">lauralyons</p>
+                        <p>suggested for you</p>
+                    </div>
+                    <button class="button">follow</button>
+                </section>
+                <section>
+                    <img src="https://picsum.photos/30/30?q=15" class="pic" />
+                    <div>
+                        <p class="username">robertsonkristen</p>
+                        <p>suggested for you</p>
+                    </div>
+                    <button class="button">follow</button>
+                </section>
+    
+            </div>
         </aside>
-        
-        <header>
-            <section id="story-flex">
-                <section class="story-prof">
-                    <img src="https://picsum.photos/199">
-                    <p>thepope</p>
-                </section>
-                <section class="story-prof">
-                    <img src="https://picsum.photos/198">
-                    <p>carpetcleaner</p>
-                </section>
-                <section class="story-prof">
-                    <img src="https://picsum.photos/197">
-                    <p>dropoutkid</p>
-                </section>
-                <section class="story-prof">
-                    <img src="https://picsum.photos/196">
-                    <p>bird</p>
-                </section>
-                <section class="story-prof">
-                    <img src="https://picsum.photos/195">
-                    <p>urmum</p>
-                </section>
-            </section>
-        </header>
-        <section class="news-feed">    
-            <section>
-                <div class="post-top">
-                    <p>haleygrant2</p>
-                    <button class="fa-solid fa-ellipsis"></button>
+    
+        <main class="content">
+            <!-- Stories -->
+            <header class="stories">
+                <div>
+                    <img src="https://picsum.photos/50/50?q=10" class="pic" />
+                    <p>gouldjennifer</p>
                 </div>
-                <img src="https://picsum.photos/825/500">
-                 <div class="post-bottom">
-                    <div class="post-icons">
+                <div>
+                    <img src="https://picsum.photos/50/50?q=11" class="pic" />
+                    <p>matthew16</p>
+                </div>
+                <div>
+                    <img src="https://picsum.photos/50/50?q=12" class="pic" />
+                    <p>sanchezjill</p>
+                </div>
+                <div>
+                    <img src="https://picsum.photos/50/50?q=13" class="pic" />
+                    <p>gloria62</p>
+                </div>
+                <div>
+                    <img src="https://picsum.photos/50/50?q=14" class="pic" />
+                    <p>jwright</p>
+                </div>
+            </header>
+    
+            <!-- Posts -->
+            <section class="card">
+                <div class="header">
+                    <h3>gibsonjack</h3>
+                    <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="https://picsum.photos/300/200?q=1" alt="placeholder image" width="300" height="300">
+                <div class="info">
+                    <div class="buttons">
                         <div>
-                            <button class="fa-regular fa-heart"></button>
-                            <button class="fa-regular fa-comment"></button>
-                            <button class="fa-regular fa-paper-plane"></button>
+                            <button class="icon-button"><i class="far fa-heart"></i></button>
+                            <button class="icon-button"><i class="far fa-comment"></i></button>
+                            <button class="icon-button"><i class="far fa-paper-plane"></i></button>
                         </div>
-                        <button class="fa-regular fa-bookmark"></button>
+                        <div>
+                            <button class="icon-button"><i class="far fa-bookmark"></i></button>
+                        </div>
                     </div>
-                    <div class="likes">
-                        <p>30 likes</p>
+                    <p class="likes"><strong>30 likes</strong></p>
+                    <div class="caption">
+                        <p>
+                            <strong>gibsonjack</strong> 
+                            Here is a caption about the photo. 
+                            Text text text text text text text text text
+                            text text text text text text text text... <button class="button">more</button>
+                        </p>
                     </div>
                     <div class="comments">
-                        <div class="user-comment"><p><strong>haleygrant2</strong></p><p>Text about the post
-                        blah blah blah more text lots of info, text, text, text, text, text, text, blah, blah, blah, blah, blah, 
-                        text, text text text text.... <a href=index.html>more</a></p>
-                        </div>
-                        <div class="user-comment">
-                            <p><strong>griffin</strong></p><p>Text about the post
-                                blah blah blah </p>
-                        </div>
-                        <div class="user-comment">
-                            <p><strong>baller</strong></p><p>Text about the post
-                                blah blah blah </p>
-                        </div>
-                        <div class="post-time">1 day ago</div>
+                        <p>
+                            <strong>lizzie</strong> 
+                            Here is a comment text text text text text text text text.
+                        </p>
+                        <p>
+                            <strong>vanek97</strong> 
+                            Here is another comment text text text.
+                        </p>
+                        <p class="timestamp">1 day ago</p>
                     </div>
-                    <div class="post-comment">
-                        <div class="add-comment">
-                            <button class="fa-regular fa-face-smile"></button>
-                            <form>
-                                <input type="text" name="add_comment" placeholder="Add a comment...">
-                            </form> 
-                        </div>
-                        <a href="index.html">Post</a>
+                </div>
+                <div class="add-comment">
+                    <div class="input-holder">
+                        <i class="far fa-smile"></i>
+                        <input type="text" placeholder="Add a comment...">
                     </div>
+                    <button class="button">Post</button>
                 </div>
             </section>
-            <section>
-                <div class="post-top">
-                    <p>noscope</p>
-                    <button class="fa-solid fa-ellipsis"></button>
+    
+            <section class="card">
+                <div class="header">
+                    <h3>lindseychandler</h3>
+                    <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
                 </div>
-                <img src="https://picsum.photos/825/501">
-                 <div class="post-bottom">
-                    <div class="post-icons">
+                <img src="https://picsum.photos/300/200?q=2" alt="placeholder image" width="300" height="300">
+                <div class="info">
+                    <div class="buttons">
                         <div>
-                            <button class="fa-regular fa-heart"></button>
-                            <button class="fa-regular fa-comment"></button>
-                            <button class="fa-regular fa-paper-plane"></button>
+                            <button class="icon-button"><i class="far fa-heart"></i></button>
+                            <button class="icon-button"><i class="far fa-comment"></i></button>
+                            <button class="icon-button"><i class="far fa-paper-plane"></i></button>
                         </div>
-                        <button class="fa-regular fa-bookmark"></button>
+                        <div>
+                            <button class="icon-button"><i class="far fa-bookmark"></i></button>
+                        </div>
                     </div>
-                    <div class="likes">
-                        <p>30 likes</p>
+                    <p class="likes"><strong>30 likes</strong></p>
+                    <div class="caption">
+                        <p>
+                            <strong>lindseychandler</strong> 
+                            Here is a caption about the photo. 
+                            Text text text text text text text text text
+                            text text text text text text text text... <button class="button">more</button>
+                        </p>
                     </div>
                     <div class="comments">
-                        <div class="user-comment"><p><strong>noscope</strong></p><p>Text about the post
-                        blah blah blah more text lots of info, text, text, text, text, text, text, blah, blah, blah, blah, blah, 
-                        text, text text text text.... <a href=index.html>more</a></p>
-                        </div>
-                        <div class="user-comment">
-                            <p><strong>griffin</strong></p><p>Text about the post
-                                blah blah blah </p>
-                        </div>
-                        <div class="user-comment">
-                            <p><strong>haleygrant2</strong></p><p>Text about the post
-                                blah blah blah </p>
-                        </div>
-                        <div class="post-time">1 day ago</div>
+                        <p>
+                            <strong>lizzie</strong> 
+                            Here is a comment text text text text text text text text.
+                        </p>
+                        <p>
+                            <strong>vanek97</strong> 
+                            Here is another comment text text text.
+                        </p>
+                        <p class="timestamp">1 day ago</p>
                     </div>
-                    <div class="post-comment">
-                        <div class="add-comment">
-                            <button class="fa-regular fa-face-smile"></button>
-                            <form>
-                                <input type="text" name="add_comment" placeholder="Add a comment...">
-                            </form> 
-                        </div>
-                        <a href="index.html">Post</a>
-                    </div>
-                </div>            
-            </section>
-            <section>
-                <div class="post-top">
-                    <p>zestysauce</p>
-                    <button class="fa-solid fa-ellipsis"></button>
                 </div>
-                <img src="https://picsum.photos/826/500">
-                 <div class="post-bottom">
-                    <div class="post-icons">
-                        <div>
-                            <button class="fa-regular fa-heart"></button>
-                            <button class="fa-regular fa-comment"></button>
-                            <button class="fa-regular fa-paper-plane"></button>
-                        </div>
-                        <button class="fa-regular fa-bookmark"></button>
+                <div class="add-comment">
+                    <div class="input-holder">
+                        <i class="far fa-smile"></i>
+                        <input type="text" placeholder="Add a comment...">
                     </div>
-                    <div class="likes">
-                        <p>30 likes</p>
+                    <button class="button">Post</button>
+                </div>
+            </section>
+    
+            <section class="card">
+                <div class="header">
+                    <h3>brandonmiller</h3>
+                    <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="https://picsum.photos/300/200?q=3" alt="placeholder image" width="300" height="300">
+                <div class="info">
+                    <div class="buttons">
+                        <div>
+                            <button class="icon-button"><i class="far fa-heart"></i></button>
+                            <button class="icon-button"><i class="far fa-comment"></i></button>
+                            <button class="icon-button"><i class="far fa-paper-plane"></i></button>
+                        </div>
+                        <div>
+                            <button class="icon-button"><i class="far fa-bookmark"></i></button>
+                        </div>
+                    </div>
+                    <p class="likes"><strong>30 likes</strong></p>
+                    <div class="caption">
+                        <p>
+                            <strong>brandonmiller</strong> 
+                            Here is a caption about the photo. 
+                            Text text text text text text text text text
+                            text text text text text text text text... <button class="button">more</button>
+                        </p>
                     </div>
                     <div class="comments">
-                        <div class="user-comment"><p><strong>zestysauce</strong></p><p>Text about the post
-                        blah blah blah more text lots of info, text, text, text, text, text, text, blah, blah, blah, blah, blah, 
-                        text, text text text text.... <a href=index.html>more</a></p>
-                        </div>
-                        <div class="user-comment">
-                            <p><strong>haleygrant2</strong></p><p>Text about the post
-                                blah blah blah </p>
-                        </div>
-                        <div class="user-comment">
-                            <p><strong>griffin</strong></p><p>Text about the post
-                                blah blah blah </p>
-                        </div>
-                        <div class="post-time">1 day ago</div>
+                        <p>
+                            <strong>lizzie</strong> 
+                            Here is a comment text text text text text text text text.
+                        </p>
+                        <p>
+                            <strong>vanek97</strong> 
+                            Here is another comment text text text.
+                        </p>
+                        <p class="timestamp">1 day ago</p>
                     </div>
-                    <div class="post-comment">
-                        <div class="add-comment">
-                            <button class="fa-regular fa-face-smile"></button>
-                            <form>
-                                <input type="text" name="add_comment" placeholder="Add a comment...">
-                            </form> 
-                        </div>
-                        <a href="index.html">Post</a>
-                    </div>
-                </div>             
-            </section>
-            <section>
-                <div class="post-top">
-                    <p>griffin</p>
-                    <button class="fa-solid fa-ellipsis"></button>
                 </div>
-                <img src="https://picsum.photos/826/501">
-                 <div class="post-bottom">
-                    <div class="post-icons">
-                        <div>
-                            <button class="fa-regular fa-heart"></button>
-                            <button class="fa-regular fa-comment"></button>
-                            <button class="fa-regular fa-paper-plane"></button>
-                        </div>
-                        <button class="fa-regular fa-bookmark"></button>
+                <div class="add-comment">
+                    <div class="input-holder">
+                        <i class="far fa-smile"></i>
+                        <input type="text" placeholder="Add a comment...">
                     </div>
-                    <div class="likes">
-                        <p>30 likes</p>
+                    <button class="button">Post</button>
+                </div>
+            </section>
+    
+            <section class="card">
+                <div class="header">
+                    <h3>debramcdaniel</h3>
+                    <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="https://picsum.photos/300/200?q=4" alt="placeholder image" width="300" height="300">
+                <div class="info">
+                    <div class="buttons">
+                        <div>
+                            <button class="icon-button"><i class="far fa-heart"></i></button>
+                            <button class="icon-button"><i class="far fa-comment"></i></button>
+                            <button class="icon-button"><i class="far fa-paper-plane"></i></button>
+                        </div>
+                        <div>
+                            <button class="icon-button"><i class="far fa-bookmark"></i></button>
+                        </div>
+                    </div>
+                    <p class="likes"><strong>30 likes</strong></p>
+                    <div class="caption">
+                        <p>
+                            <strong>debramcdaniel</strong> 
+                            Here is a caption about the photo. 
+                            Text text text text text text text text text
+                            text text text text text text text text... <button class="button">more</button>
+                        </p>
                     </div>
                     <div class="comments">
-                        <div class="user-comment"><p><strong>griffin</strong></p><p>Text about the post
-                        blah blah blah more text lots of info, text, text, text, text, text, text, blah, blah, blah, blah, blah, 
-                        text, text text text text.... <a href=index.html>more</a></p>
-                        </div>
-                        <div class="user-comment">
-                            <p><strong>zestysauce</strong></p><p>Text about the post
-                                blah blah blah </p>
-                        </div>
-                        <div class="user-comment">
-                            <p><strong>baller</strong></p><p>Text about the post
-                                blah blah blah </p>
-                        </div>
-                        <div class="post-time">1 day ago</div>
+                        <p>
+                            <strong>lizzie</strong> 
+                            Here is a comment text text text text text text text text.
+                        </p>
+                        <p>
+                            <strong>vanek97</strong> 
+                            Here is another comment text text text.
+                        </p>
+                        <p class="timestamp">1 day ago</p>
                     </div>
-                    <div class="post-comment">
-                        <div class="add-comment">
-                            <button class="fa-regular fa-face-smile"></button>
-                            <form>
-                                <input type="text" name="add_comment" placeholder="Add a comment...">
-                            </form> 
-                        </div>
-                        <a href="index.html">Post</a>
+                </div>
+                <div class="add-comment">
+                    <div class="input-holder">
+                        <i class="far fa-smile"></i>
+                        <input type="text" placeholder="Add a comment...">
                     </div>
-                </div>             
+                    <button class="button">Post</button>
+                </div>
             </section>
-        </section>
-    </main>
-</body>
-</html>
+    
+            <section class="card">
+                <div class="header">
+                    <h3>sharpmargaret</h3>
+                    <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
+                </div>
+                <img src="https://picsum.photos/300/200?q=5" alt="placeholder image" width="300" height="300">
+                <div class="info">
+                    <div class="buttons">
+                        <div>
+                            <button class="icon-button"><i class="far fa-heart"></i></button>
+                            <button class="icon-button"><i class="far fa-comment"></i></button>
+                            <button class="icon-button"><i class="far fa-paper-plane"></i></button>
+                        </div>
+                        <div>
+                            <button class="icon-button"><i class="far fa-bookmark"></i></button>
+                        </div>
+                    </div>
+                    <p class="likes"><strong>30 likes</strong></p>
+                    <div class="caption">
+                        <p>
+                            <strong>sharpmargaret</strong> 
+                            Here is a caption about the photo. 
+                            Text text text text text text text text text
+                            text text text text text text text text... <button class="button">more</button>
+                        </p>
+                    </div>
+                    <div class="comments">
+                        <p>
+                            <strong>lizzie</strong> 
+                            Here is a comment text text text text text text text text.
+                        </p>
+                        <p>
+                            <strong>vanek97</strong> 
+                            Here is another comment text text text.
+                        </p>
+                        <p class="timestamp">1 day ago</p>
+                    </div>
+                </div>
+                <div class="add-comment">
+                    <div class="input-holder">
+                        <i class="far fa-smile"></i>
+                        <input type="text" placeholder="Add a comment...">
+                    </div>
+                    <button class="button">Post</button>
+                </div>
+            </section>
+        </main>
+    </body>
+    </html>
