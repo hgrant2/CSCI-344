@@ -4,6 +4,7 @@ const rootURL = 'https://photo-app-secured.herokuapp.com';
 
 //TODO
 //finish post to html
+//fix suggestions p tag not showing at the top
 
 const showStories = async (token) => {
     const endpoint = `${rootURL}/api/stories`;
@@ -42,6 +43,41 @@ const showRightPanel = async (token) => {
     document.querySelector('aside header').innerHTML = htmlChunk;
 }
 
+const showSuggestions = async (token) => {
+    const endpoint = `${rootURL}/api/suggestions`;
+    const response = await fetch(endpoint, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+    console.log('Suggestions Panel:', data);
+    const htmlChunk = data.map(suggestionsToHtml).join(``);
+    document.querySelector('.suggestions').innerHTML = htmlChunk;
+}
+
+const suggestionsToHtml = suggestion => {
+//     <section>
+//     <img src="https://picsum.photos/30/30?q=11" class="pic" />
+//     <div>
+//         <p class="username">amandahudson</p>
+//         <p>suggested for you</p>
+//     </div>
+//     <button class="button">follow</button>
+// </section>
+
+return `<section>
+            <img src="${suggestion.thumb_url}" class="pic" />
+            <div>
+                <p class="username">${suggestion.username}</p>
+                <p>suggested for you</p>
+             </div>
+            <button class="button">follow</button>
+         </section>`;
+
+}
+
 
 const showPosts = async (token) => {
     console.log('now testing code to show post');
@@ -70,8 +106,9 @@ const initPage = async () => {
 
     // then use the access token provided to access data on the user's behalf
     showStories(token);
-    showPosts(token);
+    //showPosts(token);
     showRightPanel(token);
+    showSuggestions(token);
 }
 
 initPage();
