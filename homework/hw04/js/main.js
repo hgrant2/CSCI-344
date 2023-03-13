@@ -86,6 +86,37 @@ const showPosts = async (token) => {
     document.querySelector('.posts').innerHTML = htmlChunk;
 }
 
+
+const modalElement = document.querySelector('.modal-bg');
+console.log(modalElement);
+
+const openModal = ev => {
+    console.log('open!');
+    modalElement.classList.remove('hidden');
+    modalElement.setAttribute('aria-hidden', 'false');
+    document.querySelector('.close').focus();
+}
+
+const closeModal = ev => {
+    console.log('close!');
+    modalElement.classList.add('hidden');
+    modalElement.setAttribute('aria-hidden', 'false');
+    document.querySelector('.open').focus();
+};
+
+
+// function ensures that if the tabbing gets to the end of the 
+// modal, it will loop back up to the beginning of the modal:
+document.addEventListener('focus', function(event) {
+    console.log('focus');
+    if (modalElement.getAttribute('aria-hidden') === 'false' && !modalElement.contains(event.target)) {
+        console.log('back to top!');
+        event.stopPropagation();
+        document.querySelector('.close').focus();
+    }
+}, true);
+
+
 const postToHtml = post => {
     //things I need to get before making html
     /**
@@ -111,7 +142,58 @@ const postToHtml = post => {
         
        var commentSection = '';
        if(post.comments.length > 1){
-        commentSection = `<button class="view-comment-button"><strong>view all ${post.comments.length} comments</strong></button> 
+        commentSection = `
+        <div class="modal-bg hidden" aria-hidden="true" role="dialog">
+        <section class="modal">
+            <button class="close" aria-label="Close the modal window" onclick="closeModal(event);">Close</button>
+            <div class="modal-body">
+                <!-- Uses a background image -->
+                <div class="image" style="background-image: url('https://picsum.photos/600/430?id=139');"></div>
+                <section class="the-comments">
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                    <div class="row">
+                        <p>Some comment text</p>
+                        <button class="like-comment">some button</button>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+
+    <button class="open" onclick="openModal(event);">Open Modal...</button>
+
+        <button class="view-comment-button" onclick="openModal(event);"><strong>view all ${post.comments.length} comments</strong></button> 
         <p>
                 <strong>${post.comments[0].user.username}</strong> 
                 ${post.comments[0].text}
