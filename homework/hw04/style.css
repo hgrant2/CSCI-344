@@ -153,7 +153,23 @@ nav li {
     border: 0;
     padding: 0;
     font-size: 1.1em;
+} 
+
+.icon-button-liked {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    font-size: 1.1em;
+    color: red;
 }
+
+.view-comment-button {
+    background-color: transparent;
+    color: blue;
+    border: 0;
+    padding: 0;
+}
+
 
 .card .header, .card .buttons, .card .add-comment {
     display: flex;

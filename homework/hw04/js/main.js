@@ -5,6 +5,7 @@ const rootURL = 'https://photo-app-secured.herokuapp.com';
 //TODO
 //finish post to html
 //fix suggestions p tag not showing at the top
+//make the heart red not black
 
 const showStories = async (token) => {
     const endpoint = `${rootURL}/api/stories`;
@@ -58,15 +59,6 @@ const showSuggestions = async (token) => {
 }
 
 const suggestionsToHtml = suggestion => {
-//     <section>
-//     <img src="https://picsum.photos/30/30?q=11" class="pic" />
-//     <div>
-//         <p class="username">amandahudson</p>
-//         <p>suggested for you</p>
-//     </div>
-//     <button class="button">follow</button>
-// </section>
-
 return `<section>
             <img src="${suggestion.thumb_url}" class="pic" />
             <div>
@@ -90,13 +82,88 @@ const showPosts = async (token) => {
     })
     const data = await response.json();
     console.log('Posts:', data);
+    const htmlChunk = data.map(postToHtml).join(``);
+    document.querySelector('.posts').innerHTML = htmlChunk;
 }
 
 const postToHtml = post => {
-    return `<section>
+    //things I need to get before making html
+    /**
+     * 1. if liked
+     * 2. if bookmarked
+     * 3. how many comments their are
+     */
+
+        var likeButton = '';
+
+        if(post.current_user_like_id != null){
+             likeButton = `<button class="icon-button-liked"><i class="fa-solid fa-heart"></i></button>`;
+        }else{
+             likeButton = `<button class="icon-button"><i class="far fa-heart"></i></button>`;
+        }
+
+        var bookmarkButton = '';
+        if(post.current_user_bookmark_id != null){
+            bookmarkButton = `<button class="icon-button"><i class="fa-solid fa-bookmark"></i></button>`;
+       }else{
+            bookmarkButton = `<button class="icon-button"><i class="far fa-bookmark"></i></button>`;
+       }
+        
+       var commentSection = '';
+       if(post.comments.length > 1){
+        commentSection = `<button class="view-comment-button"><strong>view all ${post.comments.length} comments</strong></button> 
+        <p>
+                <strong>${post.comments[0].user.username}</strong> 
+                ${post.comments[0].text}
+            </p>
+            <p class="timestamp">${post.display_time}</p>
+        `
+       }else if(post.comments.length == 1){
+        commentSection = ` 
+        <p>
+                <strong>${post.comments[0].user.username}</strong> 
+                ${post.comments[0].text}
+            </p>
+            <p class="timestamp">${post.display_time}</p>
+        `
+       }
     
-    
-    </section>`;
+    return `<section class="card">
+    <div class="header">
+        <h3>${post.user.username}</h3>
+        <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
+    </div>
+    <img src="${post.image_url}" alt="placeholder image" width="300" height="300">
+    <div class="info">
+        <div class="buttons">
+            <div>
+                ${likeButton}
+                <button class="icon-button"><i class="far fa-comment"></i></button>
+                <button class="icon-button"><i class="far fa-paper-plane"></i></button>
+            </div>
+            <div>
+             ${bookmarkButton}
+            </div>
+        </div>
+        <p class="likes"><strong>${post.likes.length} likes</strong></p>
+        <div class="caption">
+            <p>
+                <strong>${post.user.username}</strong> 
+                ${post.caption}
+            </p>
+        </div>
+        <div class="comments">
+            ${commentSection}
+        </div>
+    </div>
+    <div class="add-comment">
+        <div class="input-holder">
+            <i class="far fa-smile"></i>
+            <input type="text" placeholder="Add a comment...">
+        </div>
+        <button class="button">Post</button>
+    </div>
+</section>`;
 }
 
 
@@ -106,7 +173,7 @@ const initPage = async () => {
 
     // then use the access token provided to access data on the user's behalf
     showStories(token);
-    //showPosts(token);
+    showPosts(token);
     showRightPanel(token);
     showSuggestions(token);
 }
