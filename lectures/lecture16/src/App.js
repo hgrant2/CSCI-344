@@ -15,9 +15,13 @@
 
 
 import React from "react";
+import {useState} from "react";
 import Carousel from "./Carousel";
+import Galleries from "./Galleries";
 
 export default function App() {
+const [galleryIndex, setGalleryIndex] = useState(0);
+
     const galleries = [
         {
             name: "Gallery 1",
@@ -44,7 +48,11 @@ export default function App() {
     ]
   return (
     <div>
-        <Carousel gallery={galleries[0]} />
+        {/* We need to pass the gallery index setter into the child */}
+        <Galleries 
+        galleries={galleries} 
+        setGalleryIndex={setGalleryIndex}/>
+        <Carousel gallery={galleries[galleryIndex]} />
     </div>
-  )
+  );
 }

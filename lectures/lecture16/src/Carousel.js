@@ -1,3 +1,5 @@
+// the job of the Carousel is to display the images one by one from the galleries
+
 import React from "react";
 import { useState } from 'react';
 
@@ -21,7 +23,7 @@ export default function Carousel({gallery}) {
         // setIndex(index + 1);
         (index === gallery.images.length - 1) ? setIndex(0) : setIndex(index + 1);
     }
-    //return HSX;
+    //return JSX;
     return (
         <div className="carousel">
             <h1>{gallery.name}</h1>

@@ -41,19 +41,52 @@ const data = [
   }
 ];
 
-function loadSlides(photoList){
-  const imageTagList = photoList.map(
-    img => `<img src="${img.image_url}" />`
-  );
-  console.log(imageTagList);
-  const html = imageTagList.join("");
-  document.querySelector(".carousel-inner").insertAdjacentHTML('beforeend',html);
-  // for( let i = 0; i < this.length; i++){
-  //   console.log("the interation number: ", i);
-  //   const html = photoList[i];
-  //   document.querySelector(".carousel-inner").insertAdjacentHTML('beforeend',html);
-  //   console.log("here is the html:",html);
-  // }
+let index = 0;
+let postion = 0;
+
+function loadSlides(photoList) {
+  const location = document.querySelector(".carousel-inner");
+  for(let i = 0; i < photoList.length; i++){
+    const html = `
+      <section id="${i}" class="slide" role="group" aria-label="Slide ${i + 1} 
+        of ${photoList.length}" aria-hidden="true">
+        <img src="${photoList[i].image_url}" alt="${photoList[i].caption}">
+        <p>${photoList[i].caption}</p>
+      </section>`;
+    location.insertAdjacentHTML("beforeend", html);
+  }
+
 }
-// console.log(data);
-// loadSlides(data)
+
+function next() {
+  console.log("the next button has been clicked!");
+  console.log("index is " + index);
+  index += 1;
+  console.log("The index is changed from the next button: " + index); 
+  if(index < data.length){
+    document.querySelector(".carousel-inner").style.left = ( index *-55) + "vw";
+  }else{
+    document.querySelector(".carousel-inner").style.left = 0 + "vw";
+    index = 0;
+  }
+}
+
+
+function previous() {
+  console.log("the previous button has been clicked!");
+  console.log("index is " + index);
+  index -= 1;
+  console.log("The index is changed from the previous button: " + index);
+  if(index < data.length && index >= 0){
+    document.querySelector(".carousel-inner").style.left = (index * -55) + "vw";
+    console.log(index * 55);
+  }else{
+    index = data.length - 1;
+    document.querySelector(".carousel-inner").style.left = (index* -55) + "vw";
+
+    
+  }
+
+}
+
+loadSlides(data);

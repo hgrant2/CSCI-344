@@ -87,7 +87,7 @@ const showPosts = async (token) => {
 }
 
 
-const modalElement = document.querySelector('.modal-bg');
+let modalElement = document.querySelector('.modal-bg');
 console.log(modalElement);
 
 const openModal = ev => {
@@ -109,6 +109,8 @@ const closeModal = ev => {
 // modal, it will loop back up to the beginning of the modal:
 document.addEventListener('focus', function(event) {
     console.log('focus');
+    modalElement = document.querySelector('.modal-bg');
+    console.log(modalElement + "Modal element");
     if (modalElement.getAttribute('aria-hidden') === 'false' && !modalElement.contains(event.target)) {
         console.log('back to top!');
         event.stopPropagation();
@@ -125,6 +127,8 @@ const postToHtml = post => {
      * 3. how many comments their are
      */
 
+
+  
         var likeButton = '';
 
         if(post.current_user_like_id != null){
@@ -141,7 +145,7 @@ const postToHtml = post => {
        }
         
        var commentSection = '';
-       if(post.comments.length > 1){
+       if(post.comments.length > 1){ //if there is more than 1 comment this will add the modal
         commentSection = `
         <div class="modal-bg hidden" aria-hidden="true" role="dialog">
         <section class="modal">
@@ -190,8 +194,6 @@ const postToHtml = post => {
             </div>
         </section>
     </div>
-
-    <button class="open" onclick="openModal(event);">Open Modal...</button>
 
         <button class="view-comment-button" onclick="openModal(event);"><strong>view all ${post.comments.length} comments</strong></button> 
         <p>
@@ -258,6 +260,7 @@ const initPage = async () => {
     showPosts(token);
     showRightPanel(token);
     showSuggestions(token);
+
 }
 
 initPage();
