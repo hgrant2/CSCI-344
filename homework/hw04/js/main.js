@@ -90,14 +90,14 @@ const showPosts = async (token) => {
 let modalElement = document.querySelector('.modal-bg');
 console.log(modalElement);
 
-const openModal = ev => {
+ window.openModal = ev => {
     console.log('open!');
     modalElement.classList.remove('hidden');
     modalElement.setAttribute('aria-hidden', 'false');
     document.querySelector('.close').focus();
 }
 
-const closeModal = ev => {
+ window.closeModal = ev => {
     console.log('close!');
     modalElement.classList.add('hidden');
     modalElement.setAttribute('aria-hidden', 'false');
@@ -118,6 +118,8 @@ document.addEventListener('focus', function(event) {
     }
 }, true);
 
+var commentIdCount = 0;
+
 
 const postToHtml = post => {
     //things I need to get before making html
@@ -126,8 +128,6 @@ const postToHtml = post => {
      * 2. if bookmarked
      * 3. how many comments their are
      */
-
-
   
         var likeButton = '';
 
@@ -146,13 +146,14 @@ const postToHtml = post => {
         
        var commentSection = '';
        if(post.comments.length > 1){ //if there is more than 1 comment this will add the modal
+        commentIdCount += 1;
         commentSection = `
         <div class="modal-bg hidden" aria-hidden="true" role="dialog">
         <section class="modal">
             <button class="close" aria-label="Close the modal window" onclick="closeModal(event);">Close</button>
             <div class="modal-body">
                 <!-- Uses a background image -->
-                <div class="image" style="background-image: url('https://picsum.photos/600/430?id=139');"></div>
+                <div class="image" style="background-image: url('${post.image_url}');"></div>
                 <section class="the-comments">
                     <div class="row">
                         <p>Some comment text</p>
@@ -195,7 +196,7 @@ const postToHtml = post => {
         </section>
     </div>
 
-        <button class="view-comment-button" onclick="openModal(event);"><strong>view all ${post.comments.length} comments</strong></button> 
+        <button id="${commentIdCount}" class="view-comment-button" onclick="openModal(event);"><strong>view all ${post.comments.length} comments</strong></button> 
         <p>
                 <strong>${post.comments[0].user.username}</strong> 
                 ${post.comments[0].text}
