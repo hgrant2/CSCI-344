@@ -1,5 +1,4 @@
-// Maximize: shift + ⌘ + [
-// Minimize: shift + ⌘ + ]
+
 
 /********************/
 /* Global Variables */
@@ -54,22 +53,40 @@ const showPosts = async () => {
 }
 
 const getBookmarkButton = post => {
-    //post.current_user_bookmark_id
-    if(post.current_user_bookmark_id) {//if it exist this is true
-        return ` <button onclick="unbookmarkPost(${post.id})">
-        <i class="fa-solid fa-bookmark"></i> </button> `;
-    }else{
+    if (post.current_user_bookmark_id) {
+        return `
+            <button onclick="unbookmarkPost(${post.current_user_bookmark_id}, ${post.id})">
+                <i class="fa-solid fa-bookmark"></i>
+            </button>
+        `;
+    } else {
         return `
             <button onclick="bookmarkPost(${post.id})">
-            <i class="fa-regular fa-bookmark"></i> </button> `;
-    }
+                <i class="fa-regular fa-bookmark"></i>
+            </button>
+        `;
+    }  
+}
+
+const requeryRedraw = async (postId) => {
+    const endpoint = `${rootURL}/api/posts/${postId}`;
+    const response = await fetch(endpoint, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+    console.log(data);
+    const htmlString = postToHTML(data);
+    targetElementAndReplace(`#post_${postId}`, htmlString);
 }
 
 const bookmarkPost = async (postId) => {
     // define the endpoint:
     const endpoint = `${rootURL}/api/bookmarks/`;
     const postData = {
-        "post_id": postId 
+        "post_id": postId
     };
 
     // Create the bookmark:
@@ -85,7 +102,7 @@ const bookmarkPost = async (postId) => {
     console.log(data);
 }
 
-const unbookmarkPost = async (bookmarkId) => {
+const unbookmarkPost = async (bookmarkId, postId) => {
     // define the endpoint:
     const endpoint = `${rootURL}/api/bookmarks/${bookmarkId}`;
 
@@ -99,14 +116,18 @@ const unbookmarkPost = async (bookmarkId) => {
     })
     const data = await response.json();
     console.log(data);
+    requeryRedraw(postId);
 }
+
 
 const postToHTML = post => {
     // console.log(post.comments.length);
     return `
         <section id="post_${post.id}" class="post">
             <img src="${post.image_url}" alt="Fake image" />
-            ${getBookmarkButton(post)}
+            
+            ${ getBookmarkButton(post) }
+
             <p>${post.caption}</p>
             ${ showCommentAndButtonIfItMakesSense(post) }
         </section>
@@ -134,7 +155,7 @@ const showCommentAndButtonIfItMakesSense = post => {
 const initPage = async () => {
     // set the token as a global variable 
     // (so that all of your other functions can access it):
-    token = await getAccessToken(rootURL, 'webdev', 'password');
+    token = await getAccessToken(rootURL, 'haley', 'haley_password');
     console.log(token);
     
     // then use the access token provided to access data on the user's behalf

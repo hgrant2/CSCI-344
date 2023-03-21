@@ -5,9 +5,27 @@ let token ;
 
 
 //TODO
-//finish post to html
-//fix suggestions p tag not showing at the top
-//make the heart red not black
+// I was working on the following and unfollowing.
+// as of right now I believe I access this in suggestions.
+// find a way to say the following data so I know how to access it.
+
+
+/**
+ * Helper function to replace a DOM element.
+ * https://developer.mozilla.org/en-US/docs/Web/API/Node/replaceChild
+ * 
+ *  Arguments: 
+ *     1. selector: the selector you want to target (string)
+ *     2. newHTML:  the HTML you want to replace
+ */
+window.targetElementAndReplace = (selector, newHTML) => { 
+	const div = document.createElement('div'); 
+	div.innerHTML = newHTML;
+	const newEl = div.firstElementChild; 
+    const oldEl = document.querySelector(selector);
+    oldEl.parentElement.replaceChild(newEl, oldEl);
+}
+
 
 const showStories = async (token) => {
     const endpoint = `${rootURL}/api/stories`;
@@ -72,21 +90,193 @@ return `<section>
 
 }
 
+const getFollowButton = suggestion => {
+    console.log("suggestions: " + suggestion);
+    if (suggestion) {
+        return `
+            <button class="button" onclick="unfollow(${post.current_user_like_id}, ${post.id})">
+                <i class="fa-solid fa-heart"></i>
+            </button>
+        `;
+    } else {
+        return `
+            <button class="icon-button" onclick="likePost(${post.id})">
+                <i class="far fa-heart"></i>
+            </button>
+        `;
+    }  
+}
 
-const showPosts = async (token) => {
-    console.log('now testing code to show post');
-    const endpoint = `${rootURL}/api/posts`;
+
+  window.startFollowing = async (postId) => {
+    console.log("Now trying to like post");
+
+    // define the endpoint:
+    const endpoint = `${rootURL}/api/posts/likes`;
+    const postData = {
+        "post_id": postId
+    };
+
+    // Create the like:
     const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(postData)
+    })
+    const data = await response.json();
+    console.log(data);
+    requeryRedraw(postId);
+}
+
+window.unfollow = async (likeId, postId) => {
+    // define the endpoint:
+    const endpoint = `${rootURL}/api/posts/likes/${likeId}`;
+
+    // Create the like:
+    const response = await fetch(endpoint, {
+        method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         }
     })
     const data = await response.json();
-    console.log('Posts:', data);
-    const htmlChunk = data.map(postToHtml).join(``);
-    document.querySelector('.posts').innerHTML = htmlChunk;
+    console.log(data);
+    requeryRedraw(postId);
 }
+
+const getBookmarkButton = post => {
+    if (post.current_user_bookmark_id) {
+        return `
+            <button class="icon-button" onclick="unbookmarkPost(${post.current_user_bookmark_id}, ${post.id})">
+                <i class="fa-solid fa-bookmark"></i>
+            </button>
+        `;
+    } else {
+        return `
+            <button class="icon-button" onclick="bookmarkPost(${post.id})">
+                <i class="far fa-bookmark"></i>
+            </button>
+        `;
+    }  
+}
+
+  window.bookmarkPost = async (postId) => {
+    console.log("Now trying to bookmark post");
+
+    // define the endpoint:
+    const endpoint = `${rootURL}/api/bookmarks/`;
+    const postData = {
+        "post_id": postId
+    };
+
+    // Create the bookmark:
+    const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(postData)
+    })
+    const data = await response.json();
+    console.log(data);
+    requeryRedraw(postId);
+}
+
+window.unbookmarkPost = async (bookmarkId, postId) => {
+    // define the endpoint:
+    const endpoint = `${rootURL}/api/bookmarks/${bookmarkId}`;
+
+    // Create the bookmark:
+    const response = await fetch(endpoint, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+    console.log(data);
+    requeryRedraw(postId);
+}
+
+
+const getLikeButton = post => {
+    if (post.current_user_like_id) {
+        return `
+            <button class="icon-button-liked" onclick="unlikePost(${post.current_user_like_id}, ${post.id})">
+                <i class="fa-solid fa-heart"></i>
+            </button>
+        `;
+    } else {
+        return `
+            <button class="icon-button" onclick="likePost(${post.id})">
+                <i class="far fa-heart"></i>
+            </button>
+        `;
+    }  
+}
+
+
+  window.likePost = async (postId) => {
+    console.log("Now trying to like post");
+
+    // define the endpoint:
+    const endpoint = `${rootURL}/api/posts/likes`;
+    const postData = {
+        "post_id": postId
+    };
+
+    // Create the like:
+    const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(postData)
+    })
+    const data = await response.json();
+    console.log(data);
+    requeryRedraw(postId);
+}
+
+window.unlikePost = async (likeId, postId) => {
+    // define the endpoint:
+    const endpoint = `${rootURL}/api/posts/likes/${likeId}`;
+
+    // Create the like:
+    const response = await fetch(endpoint, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+    console.log(data);
+    requeryRedraw(postId);
+}
+
+
+    async function showPosts(token) {
+        console.log('now testing code to show post');
+        const endpoint = `${rootURL}/api/posts`;
+        const response = await fetch(endpoint, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        const data = await response.json();
+        console.log('Posts:', data);
+        const htmlChunk = data.map(postToHtml).join(``);
+        document.querySelector('.posts').innerHTML = htmlChunk;
+    }
 
 async function requeryPost(post_id) {
     // get a fresh copy of the post
@@ -102,6 +292,20 @@ async function requeryPost(post_id) {
     return data;
     // to make the screen redraw after requerying the post,
     // we need to set a state variable:
+}
+
+ window.requeryRedraw = async (postId) => {
+    const endpoint = `${rootURL}/api/posts/${postId}`;
+    const response = await fetch(endpoint, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+    console.log(data);
+    const htmlString = postToHtml(data);
+    targetElementAndReplace(`#post_${postId}`, htmlString);
 }
 
 
@@ -127,7 +331,7 @@ console.log(modalElement);
             </div>`;
 
             commentHTML = commentHTML.concat(comment);
-            console.log(commentHTML);
+            // console.log(commentHTML);
         }
 
 
@@ -190,24 +394,24 @@ const postToHtml = post => {
             </div>`;
 
             commentHTML = commentHTML.concat(comment);
-            console.log(commentHTML);
+            // console.log(commentHTML);
         }
     
 
-        var likeButton = '';
+        // var likeButton = '';
 
-        if(post.current_user_like_id != null){
-             likeButton = `<button class="icon-button-liked"><i class="fa-solid fa-heart"></i></button>`;
-        }else{
-             likeButton = `<button class="icon-button"><i class="far fa-heart"></i></button>`;
-        }
+        // if(post.current_user_like_id != null){
+        //      likeButton = `<button class="icon-button-liked"><i class="fa-solid fa-heart"></i></button>`;
+        // }else{
+        //      likeButton = `<button class="icon-button"><i class="far fa-heart"></i></button>`;
+        // }
 
-        var bookmarkButton = '';
-        if(post.current_user_bookmark_id != null){
-            bookmarkButton = `<button class="icon-button"><i class="fa-solid fa-bookmark"></i></button>`;
-       }else{
-            bookmarkButton = `<button class="icon-button"><i class="far fa-bookmark"></i></button>`;
-       }
+    //     var bookmarkButton = '';
+    //     if(post.current_user_bookmark_id != null){
+    //         bookmarkButton = `<button class="icon-button"><i class="fa-solid fa-bookmark"></i></button>`;
+    //    }else{
+    //         bookmarkButton = `<button class="icon-button"><i class="far fa-bookmark"></i></button>`;
+    //    }
         
        var commentSection = '';
        if(post.comments.length > 1){ //if there is more than 1 comment this will add the modal
@@ -243,7 +447,7 @@ const postToHtml = post => {
         `
        }
     
-    return `<section class="card">
+    return `<section id="post_${post.id}" class="card">
     <div class="header">
         <h3>${post.user.username}</h3>
         <button class="icon-button"><i class="fas fa-ellipsis-h"></i></button>
@@ -252,12 +456,12 @@ const postToHtml = post => {
     <div class="info">
         <div class="buttons">
             <div>
-                ${likeButton}
+                ${getLikeButton(post)}
                 <button class="icon-button"><i class="far fa-comment"></i></button>
                 <button class="icon-button"><i class="far fa-paper-plane"></i></button>
             </div>
             <div>
-             ${bookmarkButton}
+             ${getBookmarkButton(post)}
             </div>
         </div>
         <p class="likes"><strong>${post.likes.length} likes</strong></p>
@@ -284,7 +488,7 @@ const postToHtml = post => {
 
 const initPage = async () => {
     // first log in (we will build on this after Spring Break):
-     token = await getAccessToken(rootURL, 'webdev', 'password');
+     token = await getAccessToken(rootURL, 'haley', 'haley_password');
 
     // then use the access token provided to access data on the user's behalf
     showStories(token);
