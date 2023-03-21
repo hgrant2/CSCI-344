@@ -1,6 +1,8 @@
 import {getAccessToken} from './utilities.js';
 const rootURL = 'https://photo-app-secured.herokuapp.com';
 
+let token ;
+
 
 //TODO
 //finish post to html
@@ -86,15 +88,57 @@ const showPosts = async (token) => {
     document.querySelector('.posts').innerHTML = htmlChunk;
 }
 
+async function requeryPost(post_id) {
+    // get a fresh copy of the post
+        const response = await fetch(`${rootURL}/api/posts/${post_id}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+    // to make the screen redraw after requerying the post,
+    // we need to set a state variable:
+}
+
 
 let modalElement = document.querySelector('.modal-bg');
 console.log(modalElement);
 
- window.openModal = ev => {
+ window.openModal = async (ev, post_id) => {
     console.log('open!');
+    console.log(post_id);
+    const post = await requeryPost(post_id);
+    console.log(post);
+
+    const commentNum = post.comments.length;
+        let commentHTML = ``;
+        for(let i = 0; i < commentNum; i++){
+            const comment = ` 
+            <div class="row">
+                <p>
+                    <strong>${post.comments[i].user.username}</strong> 
+                    ${post.comments[i].text}
+                </p>
+                <p class="timestamp">${post.display_time}</p>
+            </div>`;
+
+            commentHTML = commentHTML.concat(comment);
+            console.log(commentHTML);
+        }
+
+
+    document.querySelector('.modal-body').innerHTML = ` <!-- Uses a background image -->
+    <div class="image" style="background-image: url('${post.image_url}');"></div>
+    <section class="the-comments">
+        ${commentHTML}
+    </section>`;
     modalElement.classList.remove('hidden');
     modalElement.setAttribute('aria-hidden', 'false');
-    document.querySelector('.close').focus();
+   // document.querySelector('.close').focus();
 }
 
  window.closeModal = ev => {
@@ -120,6 +164,10 @@ document.addEventListener('focus', function(event) {
 
 var commentIdCount = 0;
 
+// const commentsToHtml = comment => {
+
+// }
+
 
 const postToHtml = post => {
     //things I need to get before making html
@@ -129,6 +177,23 @@ const postToHtml = post => {
      * 3. how many comments their are
      */
   
+        const commentNum = post.comments.length;
+        let commentHTML = ``;
+        for(let i = 0; i < commentNum; i++){
+            const comment = ` 
+            <div class="row">
+                <p>
+                    <strong>${post.comments[i].user.username}</strong> 
+                    ${post.comments[i].text}
+                </p>
+                <p class="timestamp">${post.display_time}</p>
+            </div>`;
+
+            commentHTML = commentHTML.concat(comment);
+            console.log(commentHTML);
+        }
+    
+
         var likeButton = '';
 
         if(post.current_user_like_id != null){
@@ -155,48 +220,13 @@ const postToHtml = post => {
                 <!-- Uses a background image -->
                 <div class="image" style="background-image: url('${post.image_url}');"></div>
                 <section class="the-comments">
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
-                    <div class="row">
-                        <p>Some comment text</p>
-                        <button class="like-comment">some button</button>
-                    </div>
+                    ${commentHTML}
                 </section>
             </div>
         </section>
     </div>
 
-        <button id="${commentIdCount}" class="view-comment-button" onclick="openModal(event);"><strong>view all ${post.comments.length} comments</strong></button> 
+        <button id="${commentIdCount}" class="view-comment-button" onclick="openModal(event, ${post.id});"><strong>view all ${post.comments.length} comments</strong></button> 
         <p>
                 <strong>${post.comments[0].user.username}</strong> 
                 ${post.comments[0].text}
@@ -254,7 +284,7 @@ const postToHtml = post => {
 
 const initPage = async () => {
     // first log in (we will build on this after Spring Break):
-    const token = await getAccessToken(rootURL, 'webdev', 'password');
+     token = await getAccessToken(rootURL, 'webdev', 'password');
 
     // then use the access token provided to access data on the user's behalf
     showStories(token);
