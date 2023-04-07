@@ -1,0 +1,15 @@
+Please answer the following two questions:
+
+1. What is a join (just in your own words) and why is it useful?
+
+Join allows you to user separate tables that may have the same data 
+and join them together so that you know those values you joined
+are comparing the same thing or have the same value. 
+
+
+2. Consider the structure of the posts table: why would you want to use a foreign key (user_id) to the users table instead of storing the username, first_name, and last_name in the posts table?
+You want to use a foreign key instead of using username because the foreign won't be changed.
+If the user changes their username we would have to update every single instance
+that their username was used which would slow down a database dramatically because it 
+would constantly be writing over values that have been changed. There would also be no need to
+store the exact same info in the post table if the user table already has access to those values. 
