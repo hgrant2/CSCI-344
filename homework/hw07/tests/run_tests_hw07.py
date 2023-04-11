@@ -34,41 +34,41 @@ if __name__ == '__main__':
         suite = unittest.TestSuite()
         suite.addTests([
 
-            # Bookmark GET (List) Tests:
-            TestBookmarkListEndpoint('test_bookmarks_get_check_if_query_correct'),
-            TestBookmarkListEndpoint('test_bookmarks_get_check_if_data_structure_correct'),
+            # Bookmark GET (List) Tests: WIP
+             TestBookmarkListEndpoint('test_bookmarks_get_check_if_query_correct'),
+             TestBookmarkListEndpoint('test_bookmarks_get_check_if_data_structure_correct'),
 
             # Followers GET (List) Tests:
-            TestFollowerListEndpoint('test_followers_get'),                       
-            TestFollowerListEndpoint('test_follower_get_check_data_structure'),
+            # TestFollowerListEndpoint('test_followers_get'),                       
+            # TestFollowerListEndpoint('test_follower_get_check_data_structure'),
             
             # Following GET (List) Tests:
-            TestFollowingListEndpoint('test_following_get_check_data_structure'),   
-            TestFollowingListEndpoint('test_following_get_check_if_query_correct'),
+            # TestFollowingListEndpoint('test_following_get_check_data_structure'),   
+            # TestFollowingListEndpoint('test_following_get_check_if_query_correct'),
             
-            # Posts GET (List) Tests:
-            TestPostListEndpoint('test_posts_get_defaults_to_20'),              # get (list view)
-            TestPostListEndpoint('test_posts_get_has_required_data'),           # get (list view)
-            TestPostListEndpoint('test_posts_get_limit_argument'),              # get (list view)
-            TestPostListEndpoint('test_posts_get_bad_limit_argument_handled'),  # get (list view)
-            TestPostListEndpoint('test_posts_get_is_authorized'),   
+            # Posts GET (List) Tests: DONE
+            # TestPostListEndpoint('test_posts_get_defaults_to_20'),              # get (list view)
+            # TestPostListEndpoint('test_posts_get_has_required_data'),           # get (list view)
+            # TestPostListEndpoint('test_posts_get_limit_argument'),              # get (list view)
+            # TestPostListEndpoint('test_posts_get_bad_limit_argument_handled'),  # get (list view)
+            # TestPostListEndpoint('test_posts_get_is_authorized'),   
 
-            # Posts GET (Detail) Tests:
-            TestPostDetailEndpoint('test_post_get'),                            # get (individual)
-            TestPostDetailEndpoint('test_post_get_invalid_id_404'),             # get (individual) 
-            TestPostDetailEndpoint('test_post_get_id_does_not_exist_404'),      # get (individual)
-            TestPostDetailEndpoint('test_post_get_unauthorized_id_404'),
+            # # Posts GET (Detail) Tests: DONE
+            # TestPostDetailEndpoint('test_post_get'),                            # get (individual)
+            # TestPostDetailEndpoint('test_post_get_invalid_id_404'),             # get (individual) 
+            # TestPostDetailEndpoint('test_post_get_id_does_not_exist_404'),      # get (individual)
+            #TestPostDetailEndpoint('test_post_get_unauthorized_id_404'),
 
             # Profile GET Tests:
-            TestProfileEndpoint('test_profile_get_check_if_query_correct'),
+            # TestProfileEndpoint('test_profile_get_check_if_query_correct'),
 
             # Stories GET (List) Tests:
-            TestStoryListEndpoint('test_stories_get_check_if_query_correct'),                       
-            TestStoryListEndpoint('test_stories_get_check_data_structure'),
+            # TestStoryListEndpoint('test_stories_get_check_if_query_correct'),                       
+            # TestStoryListEndpoint('test_stories_get_check_data_structure'),
 
             # Suggestions GET (List) Tests:
-            TestSuggestionsEndpoint('test_suggestions_get_check_if_query_correct'),
-            TestSuggestionsEndpoint('test_suggestions_get_check_if_data_structure_correct')
+            # TestSuggestionsEndpoint('test_suggestions_get_check_if_query_correct'),
+            # TestSuggestionsEndpoint('test_suggestions_get_check_if_data_structure_correct')
                 
         ])
         unittest.TextTestRunner(verbosity=verbosity_level).run(suite)

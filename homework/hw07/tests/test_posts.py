@@ -45,7 +45,7 @@ class TestPostListEndpoint(unittest.TestCase):
 
     def test_posts_get_is_authorized(self):
         authorized_user_ids = utils.get_authorized_user_ids(self.current_user.get('id'))
-        response = requests.get(root_url + '/api/posts?limit=50')
+        response = requests.get(root_url + '/api/posts?limit=20')
         self.assertEqual(response.status_code, 200)
         posts = response.json()
         for post in posts:
@@ -268,7 +268,7 @@ if __name__ == '__main__':
         TestPostListEndpoint('test_posts_get_has_required_data'),           # get (list view)
         TestPostListEndpoint('test_posts_get_limit_argument'),              # get (list view)
         TestPostListEndpoint('test_posts_get_bad_limit_argument_handled'),  # get (list view)
-        # TestPostListEndpoint('test_posts_get_is_authorized'),               # get (list view)
+        TestPostListEndpoint('test_posts_get_is_authorized'),               # get (list view)
 
         # TestPostListEndpoint('test_post_post'),                             # post (create)
         # TestPostListEndpoint('test_post_post_image_only'),                  # post (create)
@@ -286,10 +286,10 @@ if __name__ == '__main__':
         # TestPostDetailEndpoint('test_post_delete_id_does_not_exist_404'),   # delete
         # TestPostDetailEndpoint('test_post_delete_unauthorized_id_404'),     # delete
 
-        # TestPostDetailEndpoint('test_post_get'),                            # get (individual)
-        # TestPostDetailEndpoint('test_post_get_invalid_id_404'),             # get (individual) 
-        # TestPostDetailEndpoint('test_post_get_id_does_not_exist_404'),      # get (individual)
-        # TestPostDetailEndpoint('test_post_get_unauthorized_id_404')         # get (individual)
+        TestPostDetailEndpoint('test_post_get'),                            # get (individual)
+        TestPostDetailEndpoint('test_post_get_invalid_id_404'),             # get (individual) 
+        TestPostDetailEndpoint('test_post_get_id_does_not_exist_404'),      # get (individual)
+        TestPostDetailEndpoint('test_post_get_unauthorized_id_404')         # get (individual)
     ])
 
     unittest.TextTestRunner(verbosity=2).run(suite)

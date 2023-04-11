@@ -74,8 +74,34 @@ class PostDetailEndpoint(Resource):
 
     def get(self, id):
         # get the post based on the id
-        return Response(json.dumps({}), mimetype="application/json", status=200)
+        print("what is the id")
+        print(id)
 
+        post = Post.query.get(id)
+        print("PRINTING THE DAMN POST ", post)
+
+    #check if post is there, then check if post was made by the user we are
+    # else 404 because they do not have access???? please be fucking right
+
+
+
+
+
+        if post:
+            print("The post is ", post)
+            #print("POST TO DICT ", post.to_dict())
+            if(post.user != self.current_user):
+                print("THE USER IS NOT 12 IDK WHERE THIS IS RUNNING IF IT WILL RUN")
+                return Response(
+                    json.dumps({'error': "This user does not have access to this post id."}), status=404
+                )
+            return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
+        else:
+            print("The post does not exist ", post)
+            return Response(
+                json.dumps({'error': "id not found."}), status=404
+            )
+        
 def initialize_routes(api):
     api.add_resource(
         PostListEndpoint, 
