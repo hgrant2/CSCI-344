@@ -15,6 +15,8 @@ class FollowerListEndpoint(Resource):
         People who are following the current user.
         In other words, select user_id where following_id = current_user.id
         '''
+
+        followers = followers.query
         return Response(json.dumps([]), mimetype="application/json", status=200)
 
 

@@ -49,10 +49,34 @@ class PostListEndpoint(Resource):
         return Response(json.dumps([post.to_dict() for post in posts]), mimetype="application/json", status=200)
        
     def post(self):
-        # create a new post based on the data posted in the body 
+        # create a new post based on the data posted in the body
+        # 
+        # request.get_jason() is holding the data the user
+        # just sent over  
         body = request.get_json()
+        # 1. Create:
+        #converting the data the the user sent over http to a SQLAlchemy object
+
+        if not body.get('image_url'):
+            return(Response(json.dumps()))
+
+        new_post = Post(
+            image_url=body.get('image_url'),
+            user_id=self.current_user.id, # must be a valid user_id or will throw an error
+            caption=body.get('caption'),
+            alt_text=body.get('alt_text')
+        )
+
+        # save it to the database
+        db.session.add(new_post)    # issues the insert statement
+        db.session.commit()         # commits the change to the database 
+
+
+
         print(body)  
-        return Response(json.dumps({}), mimetype="application/json", status=201)
+
+        # send the new data ovject to the user
+        return Response(json.dumps(new_post.to_dict()), mimetype="application/json", status=201)
 
 class PostDetailEndpoint(Resource):
 
@@ -61,10 +85,27 @@ class PostDetailEndpoint(Resource):
 
 
     def patch(self, id):
+        # if I want to update a post,
+        # 1. go get current post and check if they are authorized
+        # 2. update only the items that the user changed
+        # 3. save it again
+        # 4. return final repersentation to user
         # update post based on the data posted in the body 
         body = request.get_json()
         print(body)       
-        return Response(json.dumps({}), mimetype="application/json", status=200)
+
+        post = Post.query.get(id)
+        if body.get('image_url'):
+            post.image_url = body.get('image_url')
+        if body.get('caption'):
+            post.caption = body.get('caption')
+        if body.get('alt_text'):
+            post.alt_text = body.get('alt_text')   
+
+
+        # save database
+        db.session.commit() 
+        return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
 
 
     def delete(self, id):
@@ -82,10 +123,6 @@ class PostDetailEndpoint(Resource):
 
     #check if post is there, then check if post was made by the user we are
     # else 404 because they do not have access???? please be fucking right
-
-
-
-
 
         if post:
             print("The post is ", post)
