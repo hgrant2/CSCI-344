@@ -34,13 +34,13 @@ if __name__ == '__main__':
         suite = unittest.TestSuite()
         suite.addTests([
 
-            # Bookmark GET (List) Tests: WIP
-             TestBookmarkListEndpoint('test_bookmarks_get_check_if_query_correct'),
-             TestBookmarkListEndpoint('test_bookmarks_get_check_if_data_structure_correct'),
+            # Bookmark GET (List) Tests: DONE
+            # TestBookmarkListEndpoint('test_bookmarks_get_check_if_query_correct'),
+            # TestBookmarkListEndpoint('test_bookmarks_get_check_if_data_structure_correct'),
 
-            # Followers GET (List) Tests:
-            # TestFollowerListEndpoint('test_followers_get'),                       
-            # TestFollowerListEndpoint('test_follower_get_check_data_structure'),
+            # Followers GET (List) Tests: WIP
+             TestFollowerListEndpoint('test_followers_get'),                       
+             TestFollowerListEndpoint('test_follower_get_check_data_structure'),
             
             # Following GET (List) Tests:
             # TestFollowingListEndpoint('test_following_get_check_data_structure'),   
