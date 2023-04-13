@@ -8,6 +8,12 @@ import json
 def get_path():
     return request.host_url + 'api/posts/'
 
+def get_list_of_user_ids_in_my_network(user_id):
+    following = Following.query.filter_by(user_id=user_id).all()
+    me_and_my_friend_ids = [rec.following_id for rec in following]
+    me_and_my_friend_ids.append(user_id)
+    return me_and_my_friend_ids
+
 class PostListEndpoint(Resource):
 
     def __init__(self, current_user):
@@ -118,26 +124,42 @@ class PostDetailEndpoint(Resource):
         print("what is the id")
         print(id)
 
+        # post = Post.query.get(id)
+        # print("PRINTING THE DAMN POST ", post)
+
+         # get posts created by one of these users:
+        following = Following.query.filter_by(user_id=self.current_user.id).all()
+       
+        #building a list of our friend usernames       
+         # get the post based on the id
+        # yourself and your friends
         post = Post.query.get(id)
-        print("PRINTING THE DAMN POST ", post)
+        me_and_my_friend_ids = get_list_of_user_ids_in_my_network(self.current_user.id)
+        if  post is None or post.user_id not in me_and_my_friend_ids:
+            error_message = {
+                'error': 'post {0} does not exist.'.format(id)
+            }
+            return Response(json.dumps(error_message), mimetype="application/json", status=404)
+        else:
+            return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
 
     #check if post is there, then check if post was made by the user we are
     # else 404 because they do not have access???? please be fucking right
 
-        if post:
-            print("The post is ", post)
-            #print("POST TO DICT ", post.to_dict())
-            if(post.user != self.current_user):
-                print("THE USER IS NOT 12 IDK WHERE THIS IS RUNNING IF IT WILL RUN")
-                return Response(
-                    json.dumps({'error': "This user does not have access to this post id."}), status=404
-                )
-            return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
-        else:
-            print("The post does not exist ", post)
-            return Response(
-                json.dumps({'error': "id not found."}), status=404
-            )
+        # if post:
+        #     print("The post is ", post)
+        #     #print("POST TO DICT ", post.to_dict())
+        #     if(post.user != self.current_user):
+        #         print("THE USER IS NOT 12 IDK WHERE THIS IS RUNNING IF IT WILL RUN")
+        #         return Response(
+        #             json.dumps({'error': "This user does not have access to this post id."}), status=404
+        #         )
+        #     return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
+        # else:
+        #     print("The post does not exist ", post)
+        #     return Response(
+        #         json.dumps({'error': "id not found."}), status=404
+        #     )
         
 def initialize_routes(api):
     api.add_resource(

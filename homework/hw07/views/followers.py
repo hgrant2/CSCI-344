@@ -16,7 +16,7 @@ class FollowerListEndpoint(Resource):
         In other words, select user_id where following_id = current_user.id
         '''
 
-        followers = followers.query
+        followers = followers.query.filter_by()
         return Response(json.dumps([]), mimetype="application/json", status=200)
 
 
