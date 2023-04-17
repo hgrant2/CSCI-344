@@ -246,6 +246,9 @@ def get_authorized_user_ids(user_id):
     ids.append(user_id)
     return ids
 
+def get_post_that_user_cannot_edit_delete(user_id):
+    return get_post_that_user_cannot_access(user_id)
+
 def get_post_that_user_cannot_access(user_id):
     with db.connect() as conn:
         inspector = inspect(db)
