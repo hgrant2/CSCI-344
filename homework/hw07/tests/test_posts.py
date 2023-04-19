@@ -263,7 +263,7 @@ if __name__ == '__main__':
     suite = unittest.TestSuite()
     suite.addTests([
 
-        # List Endpoint Tests:
+        # List Endpoint Tests: DONE
         TestPostListEndpoint('test_posts_get_defaults_to_20'),              # get (list view)
         TestPostListEndpoint('test_posts_get_has_required_data'),           # get (list view)
         TestPostListEndpoint('test_posts_get_limit_argument'),              # get (list view)
@@ -274,7 +274,7 @@ if __name__ == '__main__':
          TestPostListEndpoint('test_post_post_image_only'),                  # post (create)
          TestPostListEndpoint('test_post_post_bad_data_400_error'),          # post (create)
 
-        # # Detail Endpoint Tests
+        # # Detail Endpoint Tests: DONE
          TestPostDetailEndpoint('test_post_patch_correct_data_200'),                          # patch (update)
         TestPostDetailEndpoint('test_post_patch_blanks_not_overwritten'),   # patch (update)
         TestPostDetailEndpoint('test_post_patch_invalid_id_404'),           # patch (update)

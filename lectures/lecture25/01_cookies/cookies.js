@@ -1,6 +1,7 @@
 // https://www.w3schools.com/js/js_cookies.asp
 
 const getCookie = key => {
+    console.log(window.cookie);
     key = key + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     const tokens = decodedCookie.split(';');
@@ -31,22 +32,22 @@ console.log('before any cookies added:');
 console.log(document.cookie);
 
 // // set a "first_name" cookie to see what happens:
-// console.log('set a "first_name" cookie to see what happens:');
-// setCookie('first_name', 'Sarah', 1);
-// console.log(document.cookie);
-// console.log(getCookie('first_name'));
+console.log('set a "first_name" cookie to see what happens:');
+setCookie('first_name', 'Sarah', 1);
+console.log(document.cookie);
+console.log(getCookie('first_name'));
 
 // // set a "last_name" cookie to see what happens:
-// console.log('set a "last_name" cookie to see what happens:');
-// setCookie('last_name', 'Van Wart', 1);
-// console.log(document.cookie);
-// console.log(getCookie('last_name'));
+console.log('set a "last_name" cookie to see what happens:');
+setCookie('last_name', 'Van Wart', 1);
+console.log(document.cookie);
+console.log(getCookie('last_name'));
 
 // // delete the "first_name" cookie (by expiring it) to see what happens:
-// console.log('delete the "first_name" cookie (by expiring it) to see what happens');
-// deleteCookie('first_name');
-// console.log(document.cookie);
-// console.log(getCookie('first_name'));
+console.log('delete the "first_name" cookie (by expiring it) to see what happens');
+deleteCookie('first_name');
+console.log(document.cookie);
+console.log(getCookie('first_name'));
 
 // // delete the "last_name" cookie (by expiring it) to see what happens:
 // console.log('delete the "last_name" cookie (by expiring it) to see what happens');
