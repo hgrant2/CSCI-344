@@ -84,45 +84,41 @@ async def respond_to_message(websocket, message):
             'details': 'See instructions for list of valid message formats.'}
         return await websocket.send(json.dumps(data))
     
-    await websocket.send(json.dumps(data))
-    response_message = None
-
+    response_message = {}
+    #await websocket.send(json.dumps(data))
+    # if the type of message is a login message:
     if data.get('type') == 'login':
+        # add the new user to the dictionary
         logged_in_users[websocket] = data.get('username')
+
+        # create an appropriate response message
         response_message = {
             "type": "login",
             "user_joined": data.get('username'),
             "active_users": list(logged_in_users.values())
         }
-        #add new user to web socket dictionary
-        # let everyone know a new person has joined
-    elif data.get('type') == 'logout':
-        #remove the user
+    elif data.get('type') == 'disconnect':
+        # remove the user:
+        username = logged_in_users[websocket]
         del logged_in_users[websocket]
 
-        #let everyone know that the user has left
+        # let everyone know that the user has left:
         response_message = {
-            "type": "logout",
-            "user_joined": data.get('username'),
+            "type": "disconnect",
+            "user_left": username,
             "active_users": list(logged_in_users.values())
         }
-
     elif data.get('type') == 'chat':
         response_message = data
-
     else:
         response_message = {
-            'message' : 'type note recongized. Consult the documentation'
+            'message': 'type not recognized. consult the documentation'
         }
-
-        #notify all relevant users of the approiate message
+    
     for sock in logged_in_users:
-        
         # TODO: replace "data" with a message that conforms to
-        # the specs above:
-        
-
-        await sock.send(json.dumps(data))
+        # the type of message needed.
+        await sock.send(json.dumps(response_message))
 
 
 async def broadcast_messages(websocket, path):

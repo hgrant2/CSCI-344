@@ -66,6 +66,12 @@ class CommentDetailEndpoint(Resource):
     def delete(self, id):
         # delete "Comment" record where "id"=id
         print("printing comment id: ",id)
+
+        comment = Comment.query.filter_by(id=id).all()
+        print("printing what was retrieved from comment: ", comment)
+
+        comment_dict = comment[0].to_dict()
+        print("printing comment_dict: ", comment_dict.user_id)
         return Response(json.dumps({}), mimetype="application/json", status=200)
 
 

@@ -152,15 +152,22 @@ const utils = {
  ********************/
 const handleServerMessage = ev => {
     const data = JSON.parse(ev.data);
-    if (data.type === "login") {
+    if (data.type === "login" || data.type ==="disconnect")  {
         console.log('A user has just connected:');
         console.log(data);
-    } else if (data.type === "disconnect") {
-        console.log('A user has just disconnected:');
-        console.log(data);
+
+        const list_items = data.active_users.map(item => `<li>${item}</li>`);
+        document.querySelector('#users-list ul').innerHTML = list_items.join('');
     } else if (data.type === "chat") {
         console.log('A user has just sent a chat message:');
         console.log(data);
+        let className = 'left';
+
+        if(data.username === username){
+            className = 'right';
+        }
+        const messageHTML = `<div class=${className}>${data.username}: ${data.text}</div>`;
+        document.querySelector('#chat').insertAdjacentHTML("beforeend", messageHTML);
     } else {
         console.error("Message type not recognized.");
         console.log(data);
