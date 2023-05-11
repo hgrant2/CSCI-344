@@ -26,8 +26,35 @@ class FollowingListEndpoint(Resource):
     def post(self):
         # create a new "following" record based on the data posted in the body 
         body = request.get_json()
-        print(body)
-        return Response(json.dumps({}), mimetype="application/json", status=201)
+        print("Printing body : ", body)
+
+        #check if user actually exist
+        user_exist = User.query.get(body.get('user_id'))
+        if(user_exist == None):
+            return Response(json.dumps({'error': 'The user you are trying to follow on does not exist'}),mimetype="application/json", status=404)
+
+
+        #get users we are already following
+
+        #if not already following them create the follow (maybe make sure it isn't current user?)
+        print("checking things inside body and how to access")
+        print("body.get('user_id')  ")
+        print(body.get('user_id'))
+        theID = body.get('user_id')
+
+        user_to_follow = User.query.filter(User.id==theID).all()
+        print("now printing user_to_follow")
+        print(user_to_follow)
+        print("creating new_follow")
+        new_follow = Following(
+            user_id=body.get('id'),
+            following=user_to_follow
+        )
+
+        print("if this runs then we made a correct new_follow")
+        db.session.add(new_follow)
+        db.session.commit()
+        return Response(json.dumps(new_follow.to_dict_following), mimetype="application/json", status=201)
 
 class FollowingDetailEndpoint(Resource):
     def __init__(self, current_user):

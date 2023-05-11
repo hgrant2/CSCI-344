@@ -1,7 +1,7 @@
 from flask import Response, request
 from flask_restful import Resource
 import json
-from models import db, Comment, Post, Following
+from models import db, Comment, Post, Following, User
 
 class CommentListEndpoint(Resource):
 
@@ -70,9 +70,32 @@ class CommentDetailEndpoint(Resource):
         comment = Comment.query.filter_by(id=id).all()
         print("printing what was retrieved from comment: ", comment)
 
+        if (comment == []):
+            return Response(json.dumps(None), mimetype="application/json", status=404)
+
         comment_dict = comment[0].to_dict()
-        print("printing comment_dict: ", comment_dict.user_id)
-        return Response(json.dumps({}), mimetype="application/json", status=200)
+        print("printing comment_dict: ", comment_dict)
+        print("testing how tf to access stuff in comment_dict")
+        # print(comment_dict.id)
+
+
+        # TRYING SOMETHING
+        id_in_comment = []
+        for ids in comment:
+            id_in_comment.append(ids.user.id)
+        print("testing dumb idea")
+        print(id_in_comment)
+
+
+        if(self.current_user.id in id_in_comment):
+
+            # print("printing comment_dict user: ", comment_dict.user)
+            Comment.query.filter_by(id=id).delete()
+            db.session.commit()
+            return Response(json.dumps(None), mimetype="application/json", status=200)
+        
+        return Response(json.dumps(None), mimetype="application/json", status=404)
+
 
 
 def initialize_routes(api):

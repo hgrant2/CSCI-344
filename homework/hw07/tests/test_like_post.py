@@ -116,15 +116,15 @@ if __name__ == '__main__':
     suite = unittest.TestSuite()
     suite.addTests([
         
-        # POST Tests:
+        # POST Tests: DONE 
         TestLikePostListEndpoint('test_like_post_valid_request_201'),
         TestLikePostListEndpoint('test_like_post_no_duplicates_400'),
         TestLikePostListEndpoint('test_like_post_invalid_post_id_format_400'),
         TestLikePostListEndpoint('test_like_post_invalid_post_id_404'),
         TestLikePostListEndpoint('test_like_post_unauthorized_post_id_404'),
 
-        # # DELETE Tests:
-        TestLikePostDetailEndpoint('test_like_post_delete_valid_200'),
+        # # DELETE Tests: DONE
+         TestLikePostDetailEndpoint('test_like_post_delete_valid_200'),
         TestLikePostDetailEndpoint('test_like_post_delete_invalid_id_format_404'),
         TestLikePostDetailEndpoint('test_like_post_delete_invalid_id_404'),
         TestLikePostDetailEndpoint('test_like_post_delete_unauthorized_id_404'),    
