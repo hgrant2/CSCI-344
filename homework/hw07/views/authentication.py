@@ -8,10 +8,10 @@ def logout():
     # # Uncomment these lines to delete the cookies and
     # # redirect the user to the login screen
     
-    # response = make_response(redirect('/login', 302))
-    # flask_jwt_extended.unset_jwt_cookies(response)
-    # return response
-    return 'TODO: Logout'
+     response = make_response(redirect('/login', 302))
+     flask_jwt_extended.unset_jwt_cookies(response)
+     return response
+   # return 'TODO: Logout'
 
 def login():
     if request.method == 'POST':
