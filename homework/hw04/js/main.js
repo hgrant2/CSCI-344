@@ -79,45 +79,47 @@ const showSuggestions = async (token) => {
 }
 
 const suggestionsToHtml = suggestion => {
-return `<section>
+return `<section id="suggestion_${suggestion.id}">
             <img src="${suggestion.thumb_url}" class="pic" />
             <div>
                 <p class="username">${suggestion.username}</p>
                 <p>suggested for you</p>
              </div>
-            <button class="button">follow</button>
+            ${getFollowButton(suggestion)}
          </section>`;
 
 }
 
 const getFollowButton = suggestion => {
     console.log("suggestions: " + suggestion);
+    console.log("what is suggestion id: " + suggestion.id)
     if (suggestion) {
         return `
-            <button class="button" onclick="unfollow(${post.current_user_like_id}, ${post.id})">
-                <i class="fa-solid fa-heart"></i>
+            <button id="suggestionButton_${suggestion.id}" class="button" aria-label="follow button" aria-checked="false" onclick="startFollowing(${suggestion.id})">
+                follow
             </button>
         `;
     } else {
         return `
-            <button class="icon-button" onclick="likePost(${post.id})">
-                <i class="far fa-heart"></i>
+            <button class="button" aria-label="follow button" aria-checked="true" onclick="unfollow(${suggestion.id})">
+                unfollow
             </button>
         `;
     }  
 }
 
 
-  window.startFollowing = async (postId) => {
-    console.log("Now trying to like post");
+  window.startFollowing = async (suggestion_id) => {
+    console.log("Now trying to follow user");
+    console.log("the id of the user we are trying to follow: " + suggestion_id)
 
     // define the endpoint:
-    const endpoint = `${rootURL}/api/posts/likes`;
+    const endpoint = `${rootURL}/api/following`;
     const postData = {
-        "post_id": postId
+        "user_id": suggestion_id
     };
 
-    // Create the like:
+    // Create the follow:
     const response = await fetch(endpoint, {
         method: "POST",
         headers: {
@@ -128,14 +130,17 @@ const getFollowButton = suggestion => {
     })
     const data = await response.json();
     console.log(data);
-    requeryRedraw(postId);
+    console.log(data.id + " data.id")
+    let id_created = data.id
+    requeryRedrawForSuggestionsButtonJustFollowed(suggestion_id,id_created);
 }
 
-window.unfollow = async (likeId, postId) => {
+window.unfollow = async (suggestion_id, id_created) => {
+    console.log("now trying to unfollow user")
     // define the endpoint:
-    const endpoint = `${rootURL}/api/posts/likes/${likeId}`;
+    const endpoint = `${rootURL}/api/following/${id_created}`;
 
-    // Create the like:
+    // unfollow :
     const response = await fetch(endpoint, {
         method: "DELETE",
         headers: {
@@ -145,19 +150,19 @@ window.unfollow = async (likeId, postId) => {
     })
     const data = await response.json();
     console.log(data);
-    requeryRedraw(postId);
+    requeryRedrawForSuggestionsButtonJustUnfollowed(suggestion_id);
 }
 
 const getBookmarkButton = post => {
     if (post.current_user_bookmark_id) {
         return `
-            <button class="icon-button" onclick="unbookmarkPost(${post.current_user_bookmark_id}, ${post.id})">
+            <button class="icon-button" aria-label="bookmark button" aria-checked="true" onclick="unbookmarkPost(${post.current_user_bookmark_id}, ${post.id})">
                 <i class="fa-solid fa-bookmark"></i>
             </button>
         `;
     } else {
         return `
-            <button class="icon-button" onclick="bookmarkPost(${post.id})">
+            <button class="icon-button" aria-label="bookmark button" aria-checked="false" onclick="bookmarkPost(${post.id})">
                 <i class="far fa-bookmark"></i>
             </button>
         `;
@@ -208,13 +213,13 @@ window.unbookmarkPost = async (bookmarkId, postId) => {
 const getLikeButton = post => {
     if (post.current_user_like_id) {
         return `
-            <button class="icon-button-liked" onclick="unlikePost(${post.current_user_like_id}, ${post.id})">
+            <button class="icon-button-liked" aria-label="like button" aria-checked="true" onclick="unlikePost(${post.current_user_like_id}, ${post.id})">
                 <i class="fa-solid fa-heart"></i>
             </button>
         `;
     } else {
         return `
-            <button class="icon-button" onclick="likePost(${post.id})">
+            <button class="icon-button" aria-label="like button" aria-checked="false" onclick="likePost(${post.id})">
                 <i class="far fa-heart"></i>
             </button>
         `;
@@ -262,6 +267,35 @@ window.unlikePost = async (likeId, postId) => {
     requeryRedraw(postId);
 }
 
+window.addComment = async (postId) => {
+    const text_id = `#text_${postId}`;
+    console.log(text_id)
+    let textValue = document.querySelector(text_id).value;
+    console.log(textValue);
+
+    const endpoint = `${rootURL}/api/comments`;
+    const postData = {
+        "post_id":postId,
+        "text": textValue
+    };
+
+     // Create the comment:
+     const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(postData)
+    })
+    const data = await response.json();
+    console.log(data);
+    requeryRedraw(postId);
+
+
+
+}
+
 
     async function showPosts(token) {
         console.log('now testing code to show post');
@@ -306,6 +340,30 @@ async function requeryPost(post_id) {
     console.log(data);
     const htmlString = postToHtml(data);
     targetElementAndReplace(`#post_${postId}`, htmlString);
+}
+
+window.requeryRedrawForSuggestionsButtonJustFollowed = async (suggestion_id, id_created) => {
+    
+    const data = `
+            <button id="suggestionButton_${suggestion_id}" class="button" onclick="unfollow(${suggestion_id},${id_created})">
+                unfollow
+            </button>
+        `
+    console.log(data);
+    // const htmlString = suggestionsToHtml(data);
+    targetElementAndReplace(`#suggestionButton_${suggestion_id}`, data);
+}
+
+window.requeryRedrawForSuggestionsButtonJustUnfollowed = async (suggestion_id) => {
+    
+    const data = `
+            <button id="suggestionButton_${suggestion_id}" class="button" onclick="startFollowing(${suggestion_id})">
+                follow
+            </button>
+        `
+    console.log(data);
+    // const htmlString = suggestionsToHtml(data);
+    targetElementAndReplace(`#suggestionButton_${suggestion_id}`, data);
 }
 
 
@@ -378,7 +436,7 @@ const postToHtml = post => {
     /**
      * 1. if liked
      * 2. if bookmarked
-     * 3. how many comments their are
+     * 3. how many comments there are
      */
   
         const commentNum = post.comments.length;
@@ -478,9 +536,9 @@ const postToHtml = post => {
     <div class="add-comment">
         <div class="input-holder">
             <i class="far fa-smile"></i>
-            <input type="text" placeholder="Add a comment...">
+            <input type="text" id="text_${post.id}" placeholder="Add a comment...">
         </div>
-        <button class="button">Post</button>
+        <button class="button" onclick="addComment(${post.id})">Post</button>
     </div>
 </section>`;
 }

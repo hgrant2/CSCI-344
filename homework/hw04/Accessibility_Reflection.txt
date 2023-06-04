@@ -1,0 +1,11 @@
+1. Accessibility is important to all users. It is vitial for people who may be color blind,
+someone who might only be able to use a keyboard, or someone who can't read. Using Accessibility 
+features makes your site more widely avaliable to all. A way to make instagram more accessible is
+by using a screen reader for those who can't read. 
+
+2. I use WAVE to check if there is anything wrong.
+
+3. Once you are more used to making things accessible it isn't very hard to male it work. 
+for example, just simply using a button makes things tabbable which is accessible on the keyboard.
+Making things accessible makes sites easier to use for all users because you can access the site in 
+anyway you want.
