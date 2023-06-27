@@ -36,12 +36,14 @@ export default function App ({token}) {
            
            {/* Right Panel */}
             <aside>
-                {/* <Profile profile={profile} /> */}
-                <Suggestions />
+                <Profile profile={profile} /> 
+                <Suggestions token={token}/>
             </aside>
 
             <main>
-                <Stories />
+                <header className='stories'>
+                    <Stories token={token}/>
+                </header>
                 <Posts token={token} />
             </main>
 
