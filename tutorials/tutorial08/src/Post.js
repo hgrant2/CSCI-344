@@ -7,6 +7,7 @@ import {getHeaders} from './utils';
 
 import { useState } from "react";
 import BookmarkButton from './BookmarkButton';
+import Comments from './Comments';
 
 export default function Post({post, token}) {
 
@@ -50,7 +51,8 @@ export default function Post({post, token}) {
                     <BookmarkButton 
                         post={actualPost} 
                         token={token} 
-                        requeryPost={requeryPost}/>                    </div>
+                        requeryPost={requeryPost}/>                    
+                    </div>
                 </div>
                 <p className='likes'><strong>{actualPost.likes.length} likes</strong></p>
                 <div className='caption'>
@@ -60,7 +62,11 @@ export default function Post({post, token}) {
                     </p>
                 </div>
                 <div className='comments'>
-                    ADD COMMENTS HEREEEEEEEEEEEEEEEEE
+                <Comments 
+                        post={actualPost} 
+                        token={token} 
+                        requeryPost={requeryPost}/>
+
                 </div>
             </div>
             <div className='add-comment'>
