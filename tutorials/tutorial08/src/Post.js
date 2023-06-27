@@ -6,6 +6,7 @@ import LikeButton from './LikeButton';
 import {getHeaders} from './utils';
 
 import { useState } from "react";
+import BookmarkButton from './BookmarkButton';
 
 export default function Post({post, token}) {
 
@@ -24,18 +25,56 @@ export default function Post({post, token}) {
         // we need to set a state variable:
         setActualPost(data);
     }
+
+    
    
     // JSX representation of a Post
     return (
         <section className="card">
+            <div className='header'>
+                <h3>{actualPost.user.username}</h3>
+                <button className='icon-button'>{<i class="fas fa-ellipsis-h"></i>}</button>
+            </div>
             <img src={actualPost.image_url} alt={actualPost.caption} />
-            <div>{actualPost.caption}</div>
-            <div className="buttons">
+            <div className='info'>
+                <div className='buttons'>
+                    <div>
+                        <LikeButton 
+                        post={actualPost} 
+                        token={token} 
+                        requeryPost={requeryPost}/>
+                        <button class="icon-button"><i class="far fa-comment"></i></button>
+                        <button class="icon-button"><i class="far fa-paper-plane"></i></button>
+                    </div>
+                    <div>
+                    <BookmarkButton 
+                        post={actualPost} 
+                        token={token} 
+                        requeryPost={requeryPost}/>                    </div>
+                </div>
+                <p className='likes'><strong>{actualPost.likes.length} likes</strong></p>
+                <div className='caption'>
+                    <p>
+                        <strong>{actualPost.user.username}</strong>
+                        {actualPost.caption}
+                    </p>
+                </div>
+                <div className='comments'>
+                    ADD COMMENTS HEREEEEEEEEEEEEEEEEE
+                </div>
+            </div>
+            <div className='add-comment'>
+                <div className='input-holder'>
+                    <i class="far fa-smile"></i>
+                    <input type="text" placeholder="Add a comment..."></input>
+                </div>
+            </div>
+            {/* <div className="buttons">
                 <LikeButton 
                 post={actualPost} 
                 token={token} 
                 requeryPost={requeryPost}/>
-            </div>
+            </div> */}
         </section> 
     )  
 }

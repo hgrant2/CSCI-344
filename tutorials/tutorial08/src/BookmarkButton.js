@@ -2,17 +2,17 @@ import React from 'react';
 import {getHeaders} from './utils';
 
 
-export default function LikeButton({post, token, requeryPost}) {
+export default function BookmarkButton({post, token, requeryPost}) {
     // some logic at the top:
-    const likeId = post.current_user_like_id;
+    const bookmarkId = post.current_user_bookmark_id;
     const postId = post.id;
 
-    async function likeUnlike() {
-        console.log(likeId, postId);
-        // if it's liked, unlike it, else like it
-        if (likeId) {
-            console.log('unlike!')
-            const response = await fetch(`/api/posts/likes/${likeId}`, {
+    async function bookmarkUnbookmark() {
+        console.log(bookmarkId, postId);
+        // if it's bookmarked, unbookmark it, else bookmark it
+        if (bookmarkId) {
+            console.log('unbookmark!')
+            const response = await fetch(`/api/bookmarks/${bookmarkId}`, {
                 method: "DELETE",
                 headers: getHeaders(token)
             });
@@ -21,11 +21,11 @@ export default function LikeButton({post, token, requeryPost}) {
             requeryPost();
         } else {
             // code to like a post:
-            console.log('like!')
+            console.log('bookmark!')
             const postData = {
                 "post_id": postId
             };
-            const response = await fetch("/api/posts/likes/", {
+            const response = await fetch("/api/bookmarks/", {
                 method: "POST",
                 headers: getHeaders(token),
                 body: JSON.stringify(postData)
@@ -40,16 +40,16 @@ export default function LikeButton({post, token, requeryPost}) {
     // return (
     //     <button className='icon-button' onClick={likeUnlike}>{likeId ? <i class="fa-solid fa-heart"></i> : <i class="far fa-heart"></i>}</button>
     // )
-    if(likeId){
+    if(bookmarkId){
         return (
-            <button className="icon-button-liked" aria-label="like button" aria-checked="true" onClick={likeUnlike}>
-                <i class="fa-solid fa-heart"></i>
+            <button className="icon-button" aria-label="bookmark button" aria-checked="true" onClick={bookmarkUnbookmark}>
+                <i class="fa-solid fa-bookmark"></i>
             </button>
         )
     }else{
         return (
-            <button className="icon-button" aria-label="like button" aria-checked="false" onClick={likeUnlike}>
-                <i class="far fa-heart"></i>
+            <button className="icon-button" aria-label="bookmark button" aria-checked="false" onClick={bookmarkUnbookmark}>
+                <i class="far fa-bookmark"></i>
             </button>
         )
         }

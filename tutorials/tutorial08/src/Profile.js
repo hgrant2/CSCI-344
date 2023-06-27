@@ -17,11 +17,9 @@ export default function Profile({profile}) {
         );
     }
     return (
-        <aside>
             <header>
                 <img src={profile.thumb_url} className='pic'/>
                 <h2>{profile.username}</h2>
             </header>
-        </aside>    
     )
 }
