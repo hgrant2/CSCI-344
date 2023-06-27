@@ -1,3 +1,4 @@
+//displays comments in correct format based on num of comments on post
 import React from 'react';
 import {getHeaders} from './utils';
 

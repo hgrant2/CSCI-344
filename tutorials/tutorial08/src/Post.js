@@ -8,6 +8,7 @@ import {getHeaders} from './utils';
 import { useState } from "react";
 import BookmarkButton from './BookmarkButton';
 import Comments from './Comments';
+import AddComment from './AddComment';
 
 export default function Post({post, token}) {
 
@@ -69,18 +70,11 @@ export default function Post({post, token}) {
 
                 </div>
             </div>
-            <div className='add-comment'>
-                <div className='input-holder'>
-                    <i class="far fa-smile"></i>
-                    <input type="text" placeholder="Add a comment..."></input>
-                </div>
-            </div>
-            {/* <div className="buttons">
-                <LikeButton 
+            <AddComment 
                 post={actualPost} 
                 token={token} 
                 requeryPost={requeryPost}/>
-            </div> */}
+                
         </section> 
     )  
 }

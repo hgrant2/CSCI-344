@@ -1,3 +1,4 @@
+//bookmarks or unbookmarks post
 import React from 'react';
 import {getHeaders} from './utils';
 

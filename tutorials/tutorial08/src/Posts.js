@@ -1,3 +1,4 @@
+//wrapper of post to display all posts
 import React from 'react';
 
 import { useState, useEffect } from "react";

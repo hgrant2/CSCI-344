@@ -1,6 +1,6 @@
 // The job of Suggestions is to display suggestions
+//also follows and unfollows users
 
-//MAKE IT SO WE CAN FOLLOW AND UNFOLLOW
 import React from 'react';
 import { useState, useEffect } from "react";
 import {getHeaders} from './utils';

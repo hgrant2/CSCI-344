@@ -1,3 +1,4 @@
+//displays singular stories
 import React from 'react';
 import {getHeaders} from './utils';
 
@@ -5,21 +6,6 @@ import { useState } from "react";
 
 export default function Story({story, token}) {
 
-    // const [singleStory, setSingleStory] = useState(story);
-
-
-    // async function requeryStory() {
-    //     // get a fresh copy of the post
-    //         const response = await fetch(`/api/posts/${story.id}`, {
-    //         method: "GET",
-    //         headers: getHeaders(token)
-    //     });
-    //     const data = await response.json();
-    //     console.log(data);
-    //     // to make the screen redraw after requerying the post,
-    //     // we need to set a state variable:
-    //     setSingleStory(data);
-    // }
    
     if(!story){
         return (

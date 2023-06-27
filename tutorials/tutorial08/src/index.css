@@ -279,7 +279,7 @@ nav li {
     width: 90%;
 }
 
-.card .add-comment input, .card .add-comment input:focus, .card .add-comment input:focus-visible {
+.card .add-comment textarea, .card .add-comment input:focus, .card .add-comment input:focus-visible {
     border-width: 0px;
     outline: none;
     font-size: 0.95em;
